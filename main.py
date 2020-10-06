@@ -1,16 +1,21 @@
 import sys, pygame
-from sprites import move_simon, joystick
+from sprites import move_simon
 from control_panel import print_control
 
 
 pygame.init()
 
-pygame.display.set_caption("Taslesvania 3")
+pygame.display.set_caption("Talesvania 3")
 screen = pygame.display.set_mode((1200, 600))
 sprites = pygame.image.load('img/simon_sprites.png').convert_alpha()
 sprites = pygame.transform.scale(sprites, (1281, 235) ) # escala
-fps = 16
 
+itens = pygame.image.load('img/itens.png').convert_alpha()
+itens = pygame.transform.scale(itens, (570, 204) ) # escala
+
+joystick = [0,0,0,0,0,0,0,0] # 0- up | 1- down | 2- left | 3- right | 4- jump | 5- whip
+
+fps = 16
 clock = pygame.time.Clock()
 
 while 1:
@@ -51,8 +56,8 @@ while 1:
 
     screen.fill((255, 255, 255)) # background color
 
-    move_simon(screen, sprites)
-    print_control(screen,fps)
+    move_simon(screen, sprites, joystick)
+    print_control(screen,fps, itens)
 
     #    print("X: ",fix_x, " Y: ", fix_y)
 

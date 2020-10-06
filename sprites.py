@@ -5,7 +5,6 @@ jump = [0,0,0] # 0 - in jump | 1 - jump counter | 2 - jump direction
 whip = [0,0,0] # 0 - in whip | 1 - whip counter | 2 - crouched
 anima = [1,0,0] # 0- Player Sprite | 1- Counter Time Sprite | 2 - Weapon Sprite
 pos = [50, 380,1] # 0- [x, y] | 1- direction
-joystick = [0,0,0,0,0,0,0,0] # 0- up | 1- down | 2- left | 3- right | 4- jump | 5- whip
 
 #      ( ((X,Y,X+,Y+), Fix_X, Fix_y, Fix_X_Crounched, Fix_Y_Crounched)  ) # crounched is used only for weapons sprites
 simon= (((60,10,60,110),0,0),((0,10,60,110),0,0),((120,10,60,110),0,0),((180,10,60,110),0,0),((120,10,60,110),0,0),((570,10,80,110),15,0),((650,10,70,110),5,0),((720,10,80,110),17,0),((810,10,80,110),-13,0),((890,10,80,110),-6,0),((960,10,80,110),14,0))
@@ -14,7 +13,7 @@ weapon= ((( 0,0,0,0),0,0,0,0),(( 0,120,40,110),-20,0,-50,0),(( 60,120,60,110),-3
 _hero = []
 _weapon = []
 
-def move_simon(screen, sprites):
+def move_simon(screen, sprites, joystick):
     print(joystick)
 
     if(joystick[1]):
