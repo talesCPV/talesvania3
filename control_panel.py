@@ -3,14 +3,17 @@ import pygame
 v_energy = 16
 v_enemy = 16
 v_time = 300
-v_score = 3700
+v_score = 0
 v_stage = [1,1]
-v_hearts = 5
+v_hearts = 35
 v_lifes = 4
-
+v_mult = 1
+v_wep = 3
 c_time = 0
-weapon= ([3,3,60,60],[66,3,60,60],[129,3,60,60],[192,3,60,60],[255,3,60,60])
-sel_wep = 3
+
+weapon= ([0,0,0,0],[3,3,60,60],[66,3,60,60],[129,3,60,60],[192,3,60,60],[255,3,60,60])
+mult = ([0,0,0,0],[381,3,60,60],[444,3,60,60])
+
 
 def print_control(screen,fps, itens):
     global c_time, v_time
@@ -75,9 +78,13 @@ def print_control(screen,fps, itens):
     pygame.draw.lines(screen, (255, 55, 26), True, [(sq[0], sq[1]), (sq[0]+sq[2], sq[1]), (sq[0]+sq[2], sq[1]+sq[3]), (sq[0], sq[1]+sq[3])], 5)
 
     # IMAGES
-    print(weapon[0])
-    wep = (itens.subsurface(pygame.Rect( weapon[sel_wep] )))
-    wep_x = sq[0]+ sq[2]//2 - weapon[sel_wep][2]//2
-    wep_y = sq[1]+sq[3]//2 - weapon[sel_wep][3]//2
+
+    wep = (itens.subsurface(pygame.Rect( weapon[v_wep] )))
+    wep_x = sq[0]+ sq[2]//2 - weapon[v_wep][2]//2
+    wep_y = sq[1]+sq[3]//2 - weapon[v_wep][3]//2
     screen.blit(wep, (wep_x , wep_y , 60 , 60))
+
     screen.blit(itens.subsurface(pygame.Rect( 255 , 66 , 60 , 60 )), (640 , 20 , 60 , 60))
+
+    mul = (itens.subsurface(pygame.Rect( mult[v_mult] )))
+    screen.blit(mul, (780 , 30 , 60 , 60))

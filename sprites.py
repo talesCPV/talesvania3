@@ -1,8 +1,9 @@
 import pygame
+from control_panel import v_mult,v_wep, weapon as array_wep, mult as array_mult
+from weapon import wep_thw, wep_pos, wep_flip
 
-
-jump = [0,0,0] # 0 - in jump | 1 - jump counter | 2 - jump direction
-whip = [0,0,0] # 0 - in whip | 1 - whip counter | 2 - crouched
+jump =  [0,0,0] # 0 - in jump | 1 - jump counter | 2 - jump direction
+whip =  [0,0,0] # 0 - in whip | 1 - whip counter | 2 - crouched
 anima = [1,0,0] # 0- Player Sprite | 1- Counter Time Sprite | 2 - Weapon Sprite
 pos = [50, 380,1] # 0- [x, y] | 1- direction
 
@@ -10,11 +11,10 @@ pos = [50, 380,1] # 0- [x, y] | 1- direction
 simon= (((60,10,60,110),0,0),((0,10,60,110),0,0),((120,10,60,110),0,0),((180,10,60,110),0,0),((120,10,60,110),0,0),((570,10,80,110),15,0),((650,10,70,110),5,0),((720,10,80,110),17,0),((810,10,80,110),-13,0),((890,10,80,110),-6,0),((960,10,80,110),14,0))
 weapon= ((( 0,0,0,0),0,0,0,0),(( 0,120,40,110),-20,0,-50,0),(( 60,120,60,110),-35,-15,-50,-15),(( 120,120,130,110),85,0,80,0))
 
-_hero = []
-_weapon = []
+
 
 def move_simon(screen, sprites, joystick):
-    print(joystick)
+#    print(joystick)
 
     if(joystick[1]):
         anima[0] = 0
@@ -57,6 +57,7 @@ def move_simon(screen, sprites, joystick):
         anima[0] = 0
         whip[0] = 1
 
+
     if(jump[0]):
         anima[0] = 0
         anima[2] = 0
@@ -64,7 +65,7 @@ def move_simon(screen, sprites, joystick):
 
     if (whip[0]):
         anima[0] = 5
-        whip_simon()
+        whip_simon(joystick)
 
 
     hero_surface   = (sprites.subsurface(pygame.Rect( simon[anima[0]][0]  )))
@@ -94,12 +95,8 @@ def move_simon(screen, sprites, joystick):
     fix_y = - weapon[anima[2]][0][3] // 2 + weapon[anima[2]][2 + crouched]
     if(whip[2]):
         fix_y += 20
-    print("X: ",fix_x, " Y: ", fix_y)
 
     screen.blit(weapon_surface, (pos[0]+fix_x,pos[1]+fix_y))
-
-
-
 
 def jump_simon(dir):
     global jump
@@ -117,20 +114,22 @@ def jump_simon(dir):
     if(jump[1] == 12):
         jump = [0,0,0]
 
-
-def whip_simon():
+def whip_simon(joystick):
     global whip
 
     if (whip[1] < 2):
         anima[0] = 5
-        anima[2] = 1
+        if not (joystick[0]): anima[2] = 1
+        else: anima[2] = 0
     else:
         if (whip[1] < 4):
             anima[0] = 6
-            anima[2] = 2
+            if not (joystick[0]): anima[2] = 2
+            else: anima[2] = 0
         else:
             anima[0] = 7
-            anima[2] = 3
+            if not (joystick[0]): anima[2] = 3
+            else: anima[2] = 0
     if(whip[2]):
         anima[0] += 3
 
@@ -138,3 +137,31 @@ def whip_simon():
     if(whip[1] == 7):
         whip = [0,0,0]
         anima[2] = 0
+        if (joystick[0] and ( wep_thw[0]+wep_thw[1]+wep_thw[2] ) < v_mult+1 ):
+
+            if (pos[2] == 0):
+                w_x = pos[0] - 80
+            else:
+                w_x = pos[0] + 20
+            w_y =  pos[1] - 40
+
+            if(wep_thw[0] == 0):
+                wep_thw[0] = 1
+                wep_pos[0] = w_x
+                wep_pos[1] = w_y
+                wep_flip[0] = pos[2]
+
+            else:
+                if (wep_thw[1] == 0):
+                    wep_thw[1] = 1
+                    wep_pos[2] = w_x
+                    wep_pos[3] = w_y
+                    wep_flip[1] = pos[2]
+                else:
+                    if (wep_thw[2] == 0):
+                        wep_thw[2] = 1
+                        wep_pos[4] = w_x
+                        wep_pos[5] = w_y
+                        wep_flip[2] = pos[2]
+
+

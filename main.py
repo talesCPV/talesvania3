@@ -1,12 +1,13 @@
 import sys, pygame
 from sprites import move_simon
 from control_panel import print_control
+from weapon import throw_wep
 
 
 pygame.init()
 
 pygame.display.set_caption("Talesvania 3")
-screen = pygame.display.set_mode((1200, 600))
+screen = pygame.display.set_mode((1000, 600))
 sprites = pygame.image.load('img/simon_sprites.png').convert_alpha()
 sprites = pygame.transform.scale(sprites, (1281, 235) ) # escala
 
@@ -58,8 +59,6 @@ while 1:
 
     move_simon(screen, sprites, joystick)
     print_control(screen,fps, itens)
-
-    #    print("X: ",fix_x, " Y: ", fix_y)
-
+    throw_wep(screen,itens)
 
     pygame.display.update()
