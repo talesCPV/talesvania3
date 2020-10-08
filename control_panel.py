@@ -8,12 +8,21 @@ v_stage = [1,1]
 v_hearts = 35
 v_lifes = 4
 v_mult = 1
-v_wep = 3
+v_wep = 2
 c_time = 0
 
 weapon= ([0,0,0,0],[3,3,60,60],[66,3,60,60],[129,3,60,60],[192,3,60,60],[255,3,60,60])
 mult = ([0,0,0,0],[381,3,60,60],[444,3,60,60])
 
+play_jump =  [0,0,0] # 0 - in jump | 1 - jump counter | 2 - jump direction
+play_whip =  [0,0,0] # 0 - in whip | 1 - whip counter | 2 - crouched
+play_anima = [1,0,0] # 0- Player Sprite | 1- Counter Time Sprite | 2 - Weapon Sprite
+play_pos = [50, 380,1] # 0- [x, y] | 1- direction
+
+wep_thw = [0,0,0] # 0- throwing 1 | 1- throwing 2 | 2- throwing 3
+wep_flip = [0,0,0] # 0- wep 01 | 1- wep 02 |2- wep 03 |
+wep_pos = [0,0,0,0,0,0] # 0- X1 | 1- Y1 | 2- X2 | 3- Y2 | 4- X3 | 5- Y3
+wep_anima = [0,0]
 
 def print_control(screen,fps, itens):
     global c_time, v_time
